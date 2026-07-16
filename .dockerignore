@@ -1,0 +1,10 @@
+.git
+.gitignore
+README.md
+node_modules
+client
+server/node_modules
+server/generated/*
+server/temp/*
+server/.env
+*.log

@@ -246,6 +246,7 @@ async function startServer() {
   console.log("Checking VisionCraft AI dependencies...");
   try { await checkFFmpeg(); console.log("FFmpeg ready ✅\nFFprobe ready ✅"); } catch (error) { console.error(`FFmpeg check failed: ${error.message}`); }
   try { await checkEdgeTTS(); } catch (error) { console.error(`Edge TTS check failed: ${error.message}`); }
-  app.listen(PORT, () => console.log(`VisionCraft AI server running on http://localhost:${PORT}\nHealth check: http://localhost:${PORT}/api/health\nMaximum video duration: 120 seconds\nCaptions: Disabled\nLanguages: English, Hindi, Hinglish`));
+  app.listen(PORT, "0.0.0.0", () => console.log(`VisionCraft AI server running on port ${PORT}`));
 }
 startServer();
+
