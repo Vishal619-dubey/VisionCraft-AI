@@ -1,3 +1,6 @@
+
+
+
 # VisionCraft AI
 
 <p align="center">
@@ -5,8 +8,16 @@
 </p>
 
 <p align="center">
+  <a href="https://visioncraft-ai-vishal.netlify.app">
+    <strong>🚀 Open Live Demo</strong>
+  </a>
+  &nbsp;•&nbsp;
+  <a href="https://visioncraft-ai-api-3g4r.onrender.com/api/health">
+    API Status
+  </a>
+  &nbsp;•&nbsp;
   <a href="https://github.com/Vishal619-dubey/VisionCraft-AI">
-    <strong>Source Code</strong>
+    Source Code
   </a>
 </p>
 
@@ -14,19 +25,31 @@
   <img alt="React" src="https://img.shields.io/badge/React-Vite-61DAFB?logo=react&logoColor=white" />
   <img alt="Node.js" src="https://img.shields.io/badge/Node.js-Express-339933?logo=node.js&logoColor=white" />
   <img alt="FFmpeg" src="https://img.shields.io/badge/Video-FFmpeg-007808?logo=ffmpeg&logoColor=white" />
-  <img alt="Edge TTS" src="https://img.shields.io/badge/Voice-Edge_TTS-7C5CFF" />
-  <img alt="Status" src="https://img.shields.io/badge/Status-Portfolio_Ready-8B5CF6" />
+  <img alt="Python" src="https://img.shields.io/badge/Python-Edge_TTS-3776AB?logo=python&logoColor=white" />
+  <img alt="Docker" src="https://img.shields.io/badge/Deployment-Docker-2496ED?logo=docker&logoColor=white" />
+  <img alt="Status" src="https://img.shields.io/badge/Status-Live-22C55E" />
 </p>
 
 ## Overview
 
-VisionCraft AI is a full-stack creative media platform that converts text prompts into AI-generated images and transforms complete stories into vertical short videos. The application combines scene planning, image generation, motion effects, neural narration and FFmpeg-based video rendering in one workflow.
+VisionCraft AI is a full-stack creative media platform that converts text prompts into AI-generated images and transforms complete stories into vertical short videos.
 
-The project supports Hindi, English and Hinglish, automatically detects Hindi script, creates neural narration with Edge TTS and renders watermark-ready videos for portfolio, resume and social-media use.
+The application combines scene planning, image generation, cinematic motion effects, neural narration and FFmpeg-based video rendering in one workflow. It supports Hindi, English and Hinglish and automatically selects a suitable neural voice for narration.
+
+## Live Project
+
+| Service | URL |
+|---|---|
+| Live Frontend | [visioncraft-ai-vishal.netlify.app](https://visioncraft-ai-vishal.netlify.app) |
+| Backend API | [visioncraft-ai-api-3g4r.onrender.com](https://visioncraft-ai-api-3g4r.onrender.com) |
+| Health Check | [API Health Status](https://visioncraft-ai-api-3g4r.onrender.com/api/health) |
+| Source Code | [GitHub Repository](https://github.com/Vishal619-dubey/VisionCraft-AI) |
+
+> The backend uses a free Render instance. The first request after inactivity may take some time while the service wakes up.
 
 ## Why VisionCraft AI?
 
-Most basic AI image tools stop after returning a single image. VisionCraft AI adds a complete content-production workflow:
+Most basic AI image tools stop after generating one image. VisionCraft AI provides a complete content-production workflow:
 
 ```mermaid
 flowchart LR
@@ -38,66 +61,83 @@ flowchart LR
     F --> G[Final MP4 Video]
 ```
 
-- Generates AI images from custom prompts and styles.
+- Generates AI images from custom prompts.
 - Converts stories into multiple visual scenes.
 - Supports Hindi, English and Hinglish narration.
-- Produces vertical MP4 videos with smooth motion and watermark support.
-- Includes automatic retries, dependency checks and temporary-file cleanup.
-- Uses a responsive, portfolio-ready React interface.
+- Creates vertical MP4 videos with motion effects.
+- Adds a custom watermark to generated videos.
+- Provides downloadable images and videos.
+- Includes dependency health checks for production deployment.
 
 ## Key Features
 
 ### AI Image Studio
 
-- Prompt-based image generation.
-- Multiple visual styles including cinematic, animated and photorealistic looks.
-- Aspect ratios for square, landscape and vertical output.
-- Professional preview workspace.
+- Prompt-based AI image generation.
+- Multiple styles including Photorealistic, Cinematic, 3D Render, Anime, Digital Art and Minimal.
+- Square, landscape and vertical aspect ratios.
+- Regenerate, save and download actions.
+- Recent creation gallery.
 
-### Story-to-Video Generator
+### Story-to-Video Studio
 
-- Converts long-form stories into scene-based short videos.
-- Supports video durations up to 120 seconds.
-- Creates multiple scenes based on story length and duration.
-- Applies zoom, pan, fade and cinematic motion effects.
-- Exports standard MP4 video using FFmpeg.
+- Converts a complete story into a multi-scene video.
+- Supports 15, 30, 45, 60, 90 and 120-second durations.
+- Creates unique visuals for individual story scenes.
+- Generates cinematic zoom, pan and fade effects.
+- Produces downloadable MP4 videos.
+- Displays a generated storyboard.
 
 ### Neural Narration
 
 - Hindi voice: `hi-IN-SwaraNeural`
 - English voice: `en-IN-NeerjaNeural`
-- Hinglish support with Hindi neural narration
+- Hinglish support using Hindi neural narration
 - Automatic Hindi-script detection
-- UTF-8 file-based TTS input
-- Retry logic for temporary Edge TTS failures
-
-### Professional Output
-
-- Captions disabled for a clean visual result.
-- Custom watermark support.
-- Audio and video duration synchronization.
-- Generated scene previews and final video URLs.
-- Local generated-media storage.
+- Edge TTS retry handling
+- Audio and video duration synchronization
 
 ### Portfolio-Ready Interface
 
+- Modern dark SaaS-style design.
+- Responsive desktop and mobile layout.
 - Custom VisionCraft AI branding.
-- Modern dark SaaS-style layout.
-- Editable profile photo stored in the browser.
-- Responsive design.
-- Clean image and video creation workflow.
+- Profile image support using browser storage.
+- Creation history and favorites interface.
+- Live frontend and backend deployment.
+
+## Screenshots
+
+Create a `docs/screenshots` folder and add the following project screenshots using these exact file names.
+
+### AI Image Studio
+
+![VisionCraft AI Image Studio](docs/screenshots/image-studio.png)
+
+### Story-to-Video Studio
+
+![VisionCraft AI Story-to-Video Studio](docs/screenshots/story-video-studio.png)
+
+### Generated Storyboard and Video Preview
+
+![VisionCraft AI Generated Storyboard](docs/screenshots/generated-storyboard.png)
+
+### Mobile Responsive View
+
+![VisionCraft AI Mobile View](docs/screenshots/mobile-view.png)
 
 ## Technology Stack
 
 | Layer | Technologies |
 |---|---|
-| Frontend | React, Vite, JavaScript, responsive CSS |
+| Frontend | React, Vite, JavaScript, Lucide React, responsive CSS |
 | Backend | Node.js, Express.js, CORS |
 | Image Generation | Configurable prompt-based image endpoint |
-| Voice | Python, Edge TTS |
+| Voice Generation | Python, Edge TTS |
 | Video Processing | FFmpeg, FFprobe |
-| Storage | Local generated and temporary folders |
-| Runtime | Node.js 18+ and Python 3 |
+| Deployment | Netlify, Render, Docker |
+| Storage | Local generated and temporary media directories |
+| Version Control | Git and GitHub |
 
 ## System Architecture
 
@@ -105,9 +145,9 @@ flowchart LR
 flowchart TB
     subgraph Client[React Client]
         UI[Creation Studio]
-        IMG[Image Generator]
+        IMG[AI Image Generator]
         SHORTS[Story-to-Video Form]
-        PROFILE[Profile and Branding]
+        LIBRARY[Creation Library]
     end
 
     subgraph API[Express API]
@@ -155,7 +195,15 @@ VisionCraft-AI/
 │   ├── server.js
 │   ├── .env.example
 │   └── package.json
+├── docs/
+│   └── screenshots/
+│       ├── image-studio.png
+│       ├── story-video-studio.png
+│       ├── generated-storyboard.png
+│       └── mobile-view.png
+├── .dockerignore
 ├── .gitignore
+├── Dockerfile
 ├── package.json
 └── README.md
 ```
@@ -167,8 +215,8 @@ VisionCraft-AI/
 - Node.js 18 or newer
 - npm
 - Python 3
-- FFmpeg and FFprobe available in system `PATH`
-- Internet connection for image generation and Edge TTS
+- FFmpeg and FFprobe available in the system `PATH`
+- Internet connection for AI image generation and Edge TTS
 
 ### 1. Clone the repository
 
@@ -177,7 +225,7 @@ git clone https://github.com/Vishal619-dubey/VisionCraft-AI.git
 cd VisionCraft-AI
 ```
 
-### 2. Install dependencies
+### 2. Install project dependencies
 
 ```bash
 npm run install:all
@@ -219,7 +267,7 @@ cd server
 Copy-Item .env.example .env
 ```
 
-Example:
+Example configuration:
 
 ```env
 PORT=5000
@@ -235,7 +283,7 @@ From the project root:
 npm run dev
 ```
 
-Or use two terminals.
+Or run both applications separately.
 
 Backend:
 
@@ -260,10 +308,10 @@ Open:
 
 | Method | Endpoint | Purpose |
 |---|---|---|
-| GET | `/api/health` | Check FFmpeg, FFprobe and Edge TTS readiness |
-| POST | `/api/images/generate` | Generate an AI image URL from a prompt |
+| GET | `/api/health` | Check backend, FFmpeg, FFprobe and Edge TTS status |
+| POST | `/api/images/generate` | Generate an AI image using a text prompt |
 | POST | `/api/shorts/create` | Create a narrated story video |
-| GET | `/generated/:file` | Access generated images and videos |
+| GET | `/generated/:file` | Access generated image and video files |
 
 ### Story-to-video request example
 
@@ -275,6 +323,35 @@ Open:
   "style": "Cinematic",
   "language": "Hindi"
 }
+```
+
+## Deployment
+
+### Backend
+
+The backend is deployed on Render using Docker.
+
+The Docker image includes:
+
+- Node.js
+- Python
+- Edge TTS
+- FFmpeg
+- FFprobe
+- Required fonts
+
+### Frontend
+
+The React frontend is deployed on Netlify with:
+
+```env
+VITE_API_URL=https://visioncraft-ai-api-3g4r.onrender.com
+```
+
+The backend allows requests from:
+
+```env
+CLIENT_URL=https://visioncraft-ai-vishal.netlify.app
 ```
 
 ## Testing Checklist
@@ -289,32 +366,53 @@ ffprobe -version
 
 Recommended manual flow:
 
-1. Start backend and frontend.
-2. Open the health endpoint.
-3. Generate an AI image.
-4. Create a 15-second Hindi test video.
-5. Create a longer video with enough narration text.
-6. Confirm that the MP4 contains audio.
-7. Check generated media inside `server/generated`.
+1. Open the live frontend.
+2. Generate an AI image.
+3. Create a 15-second Hindi video.
+4. Verify Hindi neural narration.
+5. Test English and Hinglish narration.
+6. Download the generated MP4.
+7. Check mobile responsiveness.
+8. Verify the backend health endpoint.
 
-## Important Notes
+## Security and Repository Hygiene
 
 - Real `.env` files are ignored by Git.
-- Generated images, videos and temporary files are not committed.
-- Long stories should use longer selected durations.
-- Edge TTS is an online service and may occasionally require a retry.
-- The image-generation provider is configurable through `IMAGE_API_BASE`.
+- Generated media and temporary files are not committed.
+- Runtime dependencies are installed during Docker build.
+- CORS is restricted using the deployed frontend URL.
+- Environment variables are managed through Render and Netlify.
+
+## Known Limitations
+
+- The free Render backend may sleep after inactivity.
+- Generated files use temporary server storage.
+- Generated media may be removed after a redeploy or service restart.
+- AI image and TTS generation require an internet connection.
+- Long videos may take additional time to render.
+
+## Future Improvements
+
+- Persistent Cloudinary or object-storage integration.
+- User authentication and personal workspaces.
+- Database-backed generation history.
+- Additional neural voices and languages.
+- AI-generated background music.
+- Video templates and transitions.
+- Queue-based video rendering.
+- Shareable public creation pages.
 
 ## Resume Summary
 
-> Built VisionCraft AI, a full-stack AI media-generation platform using React, Node.js, Edge TTS and FFmpeg. Implemented multilingual neural narration, automated scene planning, AI image generation, cinematic video rendering, audio synchronization, dependency health checks and a responsive portfolio-ready interface.
+> Built and deployed VisionCraft AI, a full-stack AI media-generation platform using React, Node.js, Express, Python, Edge TTS, FFmpeg and Docker. Implemented multilingual neural narration, automated scene planning, prompt-based AI image generation, cinematic video rendering, watermarking, MP4 export, production health checks and responsive UI. Deployed the frontend on Netlify and the Dockerized backend on Render.
 
 ## Author
 
 **Vishal Dubey**
 
 - GitHub: [Vishal619-dubey](https://github.com/Vishal619-dubey)
-- Project: [VisionCraft AI](https://github.com/Vishal619-dubey/VisionCraft-AI)
+- Live Demo: [VisionCraft AI](https://visioncraft-ai-vishal.netlify.app)
+- Repository: [VisionCraft-AI](https://github.com/Vishal619-dubey/VisionCraft-AI)
 
 ## License
 
