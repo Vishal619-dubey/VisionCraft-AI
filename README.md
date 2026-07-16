@@ -106,7 +106,17 @@ flowchart LR
 - Creation history and favorites interface.
 - Live frontend and backend deployment.
 
+## Screenshots
 
+Create a `docs/screenshots` folder and add the following project screenshots using these exact file names.
+
+### AI Image Studio
+
+![VisionCraft AI Image Studio](docs/screenshots/image-studio.png)
+
+### Story-to-Video Studio
+
+![VisionCraft AI Story-to-Video Studio](docs/screenshots/story-video-studio.png)
 
 ### Generated Storyboard and Video Preview
 
