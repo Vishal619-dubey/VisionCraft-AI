@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: visioncraft-ai-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: CLIENT_URL
+        value: https://visioncraft-ai-vishal.netlify.app

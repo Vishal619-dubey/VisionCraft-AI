@@ -1,6 +1,4 @@
 
-
-
 # VisionCraft AI
 
 <p align="center">
@@ -34,7 +32,7 @@
 
 VisionCraft AI is a full-stack creative media platform that converts text prompts into AI-generated images and transforms complete stories into vertical short videos.
 
-The application combines scene planning, image generation, cinematic motion effects, neural narration and FFmpeg-based video rendering in one workflow. It supports Hindi, English and Hinglish and automatically selects a suitable neural voice for narration.
+The application combines scene planning, dual-keyframe image generation, 2.5D camera motion, subtitles, background music, neural narration and FFmpeg-based video rendering in one workflow. It supports Hindi, English and Hinglish with selectable male and female voices.
 
 ## Live Project
 
@@ -55,16 +53,18 @@ Most basic AI image tools stop after generating one image. VisionCraft AI provid
 flowchart LR
     A[Story or Prompt] --> B[Language Detection]
     B --> C[Scene Planning]
-    C --> D[AI Image Generation]
-    D --> E[FFmpeg Motion Rendering]
-    E --> F[Neural Narration]
+    C --> D[Dual AI Keyframes]
+    D --> E[2.5D Scene Animation]
+    E --> F[Voice, Music and Captions]
     F --> G[Final MP4 Video]
 ```
 
 - Generates AI images from custom prompts.
 - Converts stories into multiple visual scenes.
 - Supports Hindi, English and Hinglish narration.
-- Creates vertical MP4 videos with motion effects.
+- Creates vertical MP4 videos with two animated keyframes per scene.
+- Mixes neural narration, selectable background music and smart subtitles.
+- Shows live job progress while cloud rendering continues asynchronously.
 - Adds a custom watermark to generated videos.
 - Provides downloadable images and videos.
 - Includes dependency health checks for production deployment.
@@ -83,15 +83,18 @@ flowchart LR
 
 - Converts a complete story into a multi-scene video.
 - Supports 15, 30, 45, 60, 90 and 120-second durations.
-- Creates unique visuals for individual story scenes.
-- Generates cinematic zoom, pan and fade effects.
+- Creates two character-consistent visual keyframes for every scene.
+- Generates cinematic zoom, pan, crossfade and action-progression effects.
+- Provides low, medium and high animation intensity.
+- Exports in 720p or 1080p with optional burned-in subtitles.
+- Offers Cinematic Pulse, Calm Ambient, Uplifting or no background music.
 - Produces downloadable MP4 videos.
 - Displays a generated storyboard.
 
 ### Neural Narration
 
-- Hindi voice: `hi-IN-SwaraNeural`
-- English voice: `en-IN-NeerjaNeural`
+- Hindi voices: `hi-IN-SwaraNeural` and `hi-IN-MadhurNeural`
+- English voices: `en-IN-NeerjaNeural` and `en-IN-PrabhatNeural`
 - Hinglish support using Hindi neural narration
 - Automatic Hindi-script detection
 - Edge TTS retry handling
@@ -103,7 +106,8 @@ flowchart LR
 - Responsive desktop and mobile layout.
 - Custom VisionCraft AI branding.
 - Profile image support using browser storage.
-- Creation history and favorites interface.
+- Local video history, download and remove controls.
+- Professional profile photo and portfolio links.
 - Live frontend and backend deployment.
 
 ## Screenshots
@@ -310,7 +314,8 @@ Open:
 |---|---|---|
 | GET | `/api/health` | Check backend, FFmpeg, FFprobe and Edge TTS status |
 | POST | `/api/images/generate` | Generate an AI image using a text prompt |
-| POST | `/api/shorts/create` | Create a narrated story video |
+| POST | `/api/shorts/create` | Start an asynchronous animated-video job |
+| GET | `/api/jobs/:jobId` | Read render stage, progress and final result |
 | GET | `/generated/:file` | Access generated image and video files |
 
 ### Story-to-video request example
@@ -321,7 +326,13 @@ Open:
   "duration": 45,
   "watermark": "@VISHAL619",
   "style": "Cinematic",
-  "language": "Hindi"
+  "language": "Hindi",
+  "voiceGender": "Female",
+  "voiceRate": 0,
+  "music": "Cinematic Pulse",
+  "subtitles": true,
+  "animationIntensity": "Medium",
+  "quality": "720p"
 }
 ```
 
@@ -396,15 +407,13 @@ Recommended manual flow:
 - Persistent Cloudinary or object-storage integration.
 - User authentication and personal workspaces.
 - Database-backed generation history.
-- Additional neural voices and languages.
-- AI-generated background music.
 - Video templates and transitions.
-- Queue-based video rendering.
+- Persistent queue workers for high-traffic deployments.
 - Shareable public creation pages.
 
 ## Resume Summary
 
-> Built and deployed VisionCraft AI, a full-stack AI media-generation platform using React, Node.js, Express, Python, Edge TTS, FFmpeg and Docker. Implemented multilingual neural narration, automated scene planning, prompt-based AI image generation, cinematic video rendering, watermarking, MP4 export, production health checks and responsive UI. Deployed the frontend on Netlify and the Dockerized backend on Render.
+> Built and deployed VisionCraft AI 2.0, a full-stack generative-media platform using React, Node.js, Express, Python, Edge TTS, FFmpeg and Docker. Engineered asynchronous story-to-video jobs with dual AI keyframes per scene, 2.5D motion, character-consistent prompts, multilingual male/female narration, subtitles, background-music mixing, 1080p MP4 export and real-time render progress. Deployed the frontend on Netlify and the Dockerized backend on Render.
 
 ## Author
 

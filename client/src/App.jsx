@@ -2,14 +2,15 @@ import { useEffect, useRef, useState } from "react";
 import {
   Bell, Camera, ChevronDown, Clock3, Download, Film, FolderHeart,
   History, Image, LayoutGrid, LoaderCircle, Menu, Play, Search,
-  Settings, Sparkles, WandSparkles, X, Zap
+  Settings, Sparkles, WandSparkles, X, Zap, Volume2, Music2,
+  Captions, CheckCircle2, Circle, ExternalLink, Trash2
 } from "lucide-react";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
 const styles = ["Photorealistic", "Cinematic", "3D Render", "Anime", "Digital Art", "Minimal"];
 const durations = [15, 30, 45, 60, 90, 120];
 
-function Sidebar({ page, setPage, open, setOpen }) {
+function Sidebar({ page, setPage, open, setOpen, profileImage }) {
   const items = [
     ["studio", WandSparkles, "Create Image"], ["shorts", Film, "Shorts Studio"],
     ["gallery", LayoutGrid, "My Creations"], ["favorites", FolderHeart, "Favorites"],
@@ -18,7 +19,7 @@ function Sidebar({ page, setPage, open, setOpen }) {
   return <aside className={`sidebar ${open ? "open" : ""}`}>
     <div className="brand"><span className="brandmark vc-logo"><Sparkles /><i className="orbit-one"/><i className="orbit-two"/></span><span>VisionCraft <b>AI</b></span></div>
     <button className="close-mobile" onClick={() => setOpen(false)}><X /></button>
-    <div className="workspace"><div className="avatar">VD</div><div><strong>Vishal's Studio</strong><small>Creator workspace</small></div><ChevronDown size={16}/></div>
+    <div className="workspace"><div className="avatar">{profileImage?<img src={profileImage} alt="Vishal Dubey"/>:"VD"}</div><div><strong>Vishal's Studio</strong><small>AI animation workspace</small></div><ChevronDown size={16}/></div>
     <p className="nav-label">CREATIVE TOOLS</p>
     <nav>{items.map(([id, Icon, label]) => <button key={id} className={page===id?"active":""} onClick={()=>{setPage(id);setOpen(false)}}><Icon size={20}/><span>{label}</span>{id==="shorts"&&<em>NEW</em>}</button>)}</nav>
     <div className="sidebar-bottom"><button><Settings size={20}/>Settings</button><div className="credits"><div><Sparkles size={17}/><strong>Free Studio</strong></div><span>Unlimited local video renders</span><i><b style={{width:"78%"}} /></i></div></div>
@@ -67,7 +68,9 @@ function Header({ setOpen, profileImage, setProfileImage, notify }) {
           <div className="profile-menu-head"><div className="profile-img large">{profileImage?<img src={profileImage} alt="Vishal Dubey"/>:"VD"}</div><div><strong>Vishal Dubey</strong><span>VisionCraft AI Creator</span></div></div>
           <button onClick={()=>fileRef.current?.click()}><Camera size={16}/>{profileImage?"Change profile photo":"Add profile photo"}</button>
           {profileImage&&<button onClick={removeProfilePhoto}><X size={16}/>Remove photo</button>}
-          <div className="profile-menu-note">Stored only in this browser</div>
+          <a href="https://github.com/Vishal619-dubey" target="_blank" rel="noreferrer"><ExternalLink size={16}/>GitHub profile</a>
+          <a href="https://www.linkedin.com/in/vishal-dubey-ai/" target="_blank" rel="noreferrer"><ExternalLink size={16}/>LinkedIn profile</a>
+          <div className="profile-menu-note">Portfolio identity • VisionCraft AI 2.0</div>
         </div>}
         <input ref={fileRef} type="file" accept="image/*" hidden onChange={selectProfilePhoto}/>
       </div>
@@ -106,12 +109,204 @@ function ImageStudio({ creations, setCreations, notify }) {
   </main>
 }
 
-function ShortsStudio({ notify }) {
- const [topic,setTopic]=useState("Once upon a time, a young elephant named Moti was afraid to cross the river. One day, he saw a tiny bird trapped near the water. Moti gathered his courage, crossed the river and saved the bird. From that day, he understood that courage means helping someone even when you feel afraid."); const [duration,setDuration]=useState(30); const [watermark,setWatermark]=useState("@VISHAL619"); const [style,setVideoStyle]=useState("Cinematic"); const [language,setLanguage]=useState("English"); const [loading,setLoading]=useState(false); const [video,setVideo]=useState(null); const [scenes,setScenes]=useState([]);
- async function createShort(){if(topic.trim().length<20)return notify("Write a story of at least 20 characters");setLoading(true);setVideo(null);setScenes([]);try{const res=await fetch(`${API}/api/shorts/create`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({topic,duration,watermark,style,language})});const data=await res.json();if(!res.ok)throw new Error(data.message);setVideo(data.videoUrl);setScenes(data.scenes||[]);notify(`${data.sceneCount} scenes rendered with narration`);}catch(e){notify(e.message||"Video render failed")}finally{setLoading(false)}}
- return <main className="page"><section className="page-title"><div><span className="eyebrow"><Film size={14}/>AI STORY-TO-VIDEO</span><h1>Turn a story into an animated Short.</h1><p>VisionCraft creates multiple scenes, cinematic motion, neural narration and your watermark.</p></div></section><div className="shorts-grid"><section className="creator-card"><div className="card-head"><div><b>Write or paste your story</b><span>Each sentence becomes a unique visual scene</span></div></div><div className="prompt-box story-box"><textarea value={topic} onChange={e=>setTopic(e.target.value)} maxLength={1800}/><div><button onClick={()=>setTopic("A lonely robot discovered a small flower growing in an abandoned city. Every morning, he protected it from storms and brought it water. Slowly, the flower turned the grey city into a beautiful garden. The robot finally found a home.")}><WandSparkles size={15}/>Example story</button><span>{topic.length}/1800</span></div></div><div className="field"><label>Video duration</label><div className="duration-row">{durations.map(x=><button className={duration===x?"selected":""} onClick={()=>setDuration(x)} key={x}>{x<60?`${x}s`:`${x/60}m`}</button>)}</div></div><div className="field"><label>Watermark</label><input value={watermark} onChange={e=>setWatermark(e.target.value)} placeholder="@YOURNAME"/></div><div className="two-fields"><label>Language<select value={language} onChange={e=>setLanguage(e.target.value)}><option>English</option><option>Hindi</option><option>Hinglish</option></select></label><label>Video style<select value={style} onChange={e=>setVideoStyle(e.target.value)}><option>Cinematic</option><option>3D Animation</option><option>Anime</option><option>Storybook</option><option>Educational</option></select></label></div><div className="feature-list"><span><Play/>Multi-scene MP4</span><span><Image/>New visual per scene</span><span><Sparkles/>Neural voice</span></div><button className="generate" disabled={loading} onClick={createShort}>{loading?<LoaderCircle className="spin"/>:<Film/>}{loading?"Generating scenes & rendering...":"Generate Story Video"}<span>FREE</span></button>{loading&&<p className="render-help">Please wait while unique scene images and the final video are generated.</p>}</section><section className="phone-preview"><div className="phone"><div className="phone-screen">{video?<video src={video} controls autoPlay/>:<div className="empty"><Film/><b>Story video preview</b><span>Your generated scenes will play here</span></div>}</div></div>{video&&<a className="download-video" href={video} download><Download/>Download MP4</a>}<div className="render-note"><Clock3/><span><b>Multi-scene rendering</b>30 seconds may take 1–3 minutes on a normal laptop.</span></div></section></div>{scenes.length>0&&<section className="scene-board"><div className="section-head"><div><h2>Generated storyboard</h2><p>{scenes.length} unique scenes used in your video</p></div></div><div className="scene-grid">{scenes.map((scene,i)=><article key={i}><img src={scene.imageUrl}/><span>Scene {i+1}</span><p>{scene.text}</p></article>)}</div></section>}</main>
+const delay = (milliseconds) =>
+  new Promise((resolve) => setTimeout(resolve, milliseconds));
+
+function ShortsStudio({ notify, onVideoCreated }) {
+  const [topic, setTopic] = useState(
+    "एक छोटे से गाँव में अर्जुन नाम का एक गरीब लड़का रहता था। एक दिन उसे जंगल में सोने से भरा हुआ एक संदूक मिला। अर्जुन ने उसे अपने पास रखने के बजाय गाँव के मुखिया को सौंप दिया। उसकी ईमानदारी से प्रभावित होकर पूरे गाँव ने उसकी पढ़ाई में सहायता की। कई वर्षों बाद अर्जुन एक सफल अधिकारी बनकर अपने गाँव लौटा।"
+  );
+  const [duration, setDuration] = useState(30);
+  const [watermark, setWatermark] = useState("@VISHAL619");
+  const [style, setVideoStyle] = useState("3D Animation");
+  const [language, setLanguage] = useState("Hindi");
+  const [voiceGender, setVoiceGender] = useState("Female");
+  const [voiceRate, setVoiceRate] = useState(0);
+  const [music, setMusic] = useState("Cinematic Pulse");
+  const [subtitles, setSubtitles] = useState(true);
+  const [animationIntensity, setAnimationIntensity] = useState("Medium");
+  const [quality, setQuality] = useState("720p");
+  const [loading, setLoading] = useState(false);
+  const [video, setVideo] = useState(null);
+  const [scenes, setScenes] = useState([]);
+  const [progress, setProgress] = useState({
+    progress: 0,
+    stage: "idle",
+    message: "Ready to animate your story",
+  });
+
+  async function pollJob(statusUrl) {
+    for (let attempt = 0; attempt < 600; attempt += 1) {
+      await delay(2000);
+      const response = await fetch(statusUrl);
+      const job = await response.json();
+      if (!response.ok) throw new Error(job.message || "Could not read video progress");
+      setProgress(job);
+
+      if (job.status === "completed") return job.result;
+      if (job.status === "failed") throw new Error(job.message || "Video render failed");
+    }
+    throw new Error("Video generation took too long. Please try a shorter duration.");
+  }
+
+  async function createShort() {
+    if (topic.trim().length < 20) {
+      return notify("Write a story of at least 20 characters");
+    }
+    setLoading(true);
+    setVideo(null);
+    setScenes([]);
+    setProgress({ progress: 1, stage: "planning", message: "Starting animation engine..." });
+
+    try {
+      const response = await fetch(`${API}/api/shorts/create`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          topic,
+          duration,
+          watermark,
+          style,
+          language,
+          voiceGender,
+          voiceRate,
+          music,
+          subtitles,
+          animationIntensity,
+          quality,
+        }),
+      });
+      const job = await response.json();
+      if (!response.ok) throw new Error(job.message || "Could not start video render");
+      const result = await pollJob(job.statusUrl || `${API}/api/jobs/${job.jobId}`);
+      setVideo(result.videoUrl);
+      setScenes(result.scenes || []);
+      onVideoCreated(result);
+      notify(`${result.sceneCount} animated scenes and ${result.keyframeCount} keyframes ready`);
+    } catch (error) {
+      setProgress({ progress: 0, stage: "failed", message: error.message });
+      notify(error.message || "Video render failed");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const progressSteps = [
+    ["planning", "Story plan"],
+    ["voice", "Neural voice"],
+    ["scenes", "Scene animation"],
+    ["finalizing", "Final MP4"],
+  ];
+  const activeStep = progressSteps.findIndex(([stage]) => stage === progress.stage);
+
+  return <main className="page">
+    <section className="page-title">
+      <div>
+        <span className="eyebrow"><Film size={14}/>ANIMATION ENGINE 2.0</span>
+        <h1>Turn a story into an animated Short.</h1>
+        <p>Two AI keyframes per scene, cinematic movement, transitions, subtitles, music and neural voice.</p>
+      </div>
+      <span className="engine-badge"><Sparkles size={15}/>2.5D Animation</span>
+    </section>
+
+    <div className="shorts-grid">
+      <section className="creator-card">
+        <div className="card-head"><div><b>Write or paste your story</b><span>VisionCraft automatically plans consistent visual scenes</span></div><span className="step">01</span></div>
+        <div className="prompt-box story-box">
+          <textarea value={topic} onChange={(event)=>setTopic(event.target.value)} maxLength={1800}/>
+          <div><button onClick={()=>setTopic("एक अकेले रोबोट को वीरान शहर में एक छोटा सा फूल मिला। हर सुबह वह उसे तूफान से बचाता और पानी देता। धीरे-धीरे उस फूल ने पूरे शहर को सुंदर बगीचे में बदल दिया। रोबोट को आखिरकार अपना घर मिल गया।")}><WandSparkles size={15}/>Hindi example</button><span>{topic.length}/1800</span></div>
+        </div>
+
+        <div className="field"><label>Video duration</label><div className="duration-row">{durations.map((value)=><button type="button" className={duration===value?"selected":""} onClick={()=>setDuration(value)} key={value}>{value<60?`${value}s`:`${value/60}m`}</button>)}</div></div>
+        <div className="field"><label>Watermark</label><input value={watermark} onChange={(event)=>setWatermark(event.target.value)} placeholder="@YOURNAME"/></div>
+
+        <div className="control-grid">
+          <label>Language<select value={language} onChange={(event)=>setLanguage(event.target.value)}><option>English</option><option>Hindi</option><option>Hinglish</option></select></label>
+          <label>Video style<select value={style} onChange={(event)=>setVideoStyle(event.target.value)}><option>Cinematic</option><option>3D Animation</option><option>Anime</option><option>Storybook</option><option>Educational</option></select></label>
+          <label>Voice<select value={voiceGender} onChange={(event)=>setVoiceGender(event.target.value)}><option>Female</option><option>Male</option></select></label>
+          <label>Background music<select value={music} onChange={(event)=>setMusic(event.target.value)}><option>Cinematic Pulse</option><option>Calm Ambient</option><option>Uplifting</option><option>None</option></select></label>
+          <label>Animation<select value={animationIntensity} onChange={(event)=>setAnimationIntensity(event.target.value)}><option>Low</option><option>Medium</option><option>High</option></select></label>
+          <label>Export quality<select value={quality} onChange={(event)=>setQuality(event.target.value)}><option>720p</option><option>1080p</option></select></label>
+        </div>
+
+        <div className="voice-speed">
+          <div><span><Volume2 size={15}/>Voice speed</span><b>{voiceRate>0?`+${voiceRate}`:voiceRate}%</b></div>
+          <input type="range" min="-20" max="20" step="5" value={voiceRate} onChange={(event)=>setVoiceRate(Number(event.target.value))}/>
+        </div>
+        <button type="button" className={`toggle-row ${subtitles?"enabled":""}`} onClick={()=>setSubtitles((value)=>!value)}><span><Captions size={17}/><span><b>Smart subtitles</b><small>Burn scene captions into the final MP4</small></span></span><i>{subtitles?"ON":"OFF"}</i></button>
+
+        <div className="feature-list"><span><Play/>2 keyframes/scene</span><span><Image/>Character lock</span><span><Music2/>Voice + music</span></div>
+        <button className="generate" disabled={loading} onClick={createShort}>{loading?<LoaderCircle className="spin"/>:<Film/>}{loading?"Animation in progress...":"Generate Animated Story"}<span>AI 2.0</span></button>
+
+        {(loading || progress.stage === "failed") && <div className={`render-progress ${progress.stage === "failed"?"failed":""}`}>
+          <div className="progress-heading"><span>{progress.message}</span><b>{Math.round(progress.progress || 0)}%</b></div>
+          <div className="progress-track"><i style={{width:`${progress.progress || 0}%`}}/></div>
+          <div className="progress-steps">{progressSteps.map(([stage,label],index)=>{
+            const completed = progress.stage === "completed" || activeStep > index;
+            const active = progress.stage === stage;
+            return <span className={completed?"completed":active?"active":""} key={stage}>{completed?<CheckCircle2/>:<Circle/>}{label}</span>
+          })}</div>
+        </div>}
+      </section>
+
+      <section className="phone-preview">
+        <div className="phone"><div className="phone-screen">{video?<video src={video} controls autoPlay/>:<div className="empty"><Film/><b>Animated story preview</b><span>Multi-keyframe scenes will play here</span></div>}</div></div>
+        {video&&<a className="download-video" href={video} download><Download/>Download MP4</a>}
+        <div className="render-note"><Clock3/><span><b>Cloud animation render</b>15 seconds can take 2–5 minutes because every scene uses two AI keyframes.</span></div>
+      </section>
+    </div>
+
+    {scenes.length>0&&<section className="scene-board"><div className="section-head"><div><h2>Generated animation storyboard</h2><p>{scenes.length} scenes • {scenes.length*2} consistent keyframes</p></div></div><div className="scene-grid">{scenes.map((scene,index)=><article key={scene.number||index}><div className="keyframe-stack"><img src={scene.keyframes?.[0]||scene.imageUrl} alt={`Scene ${index+1}`}/>{scene.keyframes?.[1]&&<img src={scene.keyframes[1]} alt={`Scene ${index+1} motion frame`}/>}</div><span>Scene {index+1}</span><p>{scene.text}</p></article>)}</div></section>}
+  </main>
 }
 
-function LibraryPage({ creations }){return <main className="page"><section className="page-title"><div><span className="eyebrow"><LayoutGrid size={14}/>CREATIVE LIBRARY</span><h1>My creations</h1><p>Everything you generate stays organized in one workspace.</p></div></section><div className="library-grid">{creations.map((c,i)=><article key={c.id||i}><img src={c.imageUrl}/><div><b>{c.prompt}</b><span>{c.style}</span></div></article>)}{!creations.length&&<div className="library-empty"><Image/><h3>No creations yet</h3><p>Generate your first visual from the Image Studio.</p></div>}</div></main>}
+function LibraryPage({ creations, videos, removeVideo }) {
+  const empty = !creations.length && !videos.length;
+  return <main className="page">
+    <section className="page-title"><div><span className="eyebrow"><LayoutGrid size={14}/>CREATIVE LIBRARY</span><h1>My creations</h1><p>Your latest AI visuals and animated stories in one portfolio workspace.</p></div></section>
+    {videos.length>0&&<section className="library-section"><div className="section-head"><div><h2>Animated stories</h2><p>Recent video renders from this browser</p></div></div><div className="video-library-grid">{videos.map((video)=><article key={video.id}><video src={video.videoUrl} controls preload="metadata"/><div><span><Film size={13}/>{video.sceneCount} scenes • {video.duration}s</span><b>{video.language} • {video.voiceGender} voice</b><div><a href={video.videoUrl} download><Download size={15}/>Download</a><button onClick={()=>removeVideo(video.id)}><Trash2 size={15}/>Remove</button></div></div></article>)}</div></section>}
+    {creations.length>0&&<section className="library-section"><div className="section-head"><div><h2>AI images</h2><p>Recently generated visuals</p></div></div><div className="library-grid">{creations.map((creation,index)=><article key={creation.id||index}><img src={creation.imageUrl}/><div><b>{creation.prompt}</b><span>{creation.style}</span></div></article>)}</div></section>}
+    {empty&&<div className="library-empty"><Image/><h3>No creations yet</h3><p>Generate your first image or animated story.</p></div>}
+  </main>
+}
 
-export default function App(){const [page,setPage]=useState("studio");const [open,setOpen]=useState(false);const [creations,setCreations]=useState([]);const [toast,setToast]=useState("");const [profileImage,setProfileImage]=useState("");useEffect(()=>{setProfileImage(localStorage.getItem("visioncraft-profile-image")||"")},[]);const notify=(m)=>{setToast(m);setTimeout(()=>setToast(""),4200)};return <div className="app"><Sidebar {...{page,setPage,open,setOpen}}/><div className="shell"><Header {...{setOpen,profileImage,setProfileImage,notify}}/>{page==="studio"?<ImageStudio {...{creations,setCreations,notify}}/>:page==="shorts"?<ShortsStudio notify={notify}/>:<LibraryPage creations={creations}/>}</div>{toast&&<div className="toast"><Sparkles size={17}/>{toast}</div>}{open&&<div className="backdrop" onClick={()=>setOpen(false)}/>}</div>}
+export default function App() {
+  const [page,setPage]=useState("studio");
+  const [open,setOpen]=useState(false);
+  const [creations,setCreations]=useState([]);
+  const [videos,setVideos]=useState([]);
+  const [toast,setToast]=useState("");
+  const [profileImage,setProfileImage]=useState("/vishal-profile.png");
+
+  useEffect(()=>{
+    setProfileImage(localStorage.getItem("visioncraft-profile-image")||"/vishal-profile.png");
+    try { setVideos(JSON.parse(localStorage.getItem("visioncraft-video-history")||"[]")); } catch { setVideos([]); }
+  },[]);
+
+  function onVideoCreated(video) {
+    setVideos((current)=>{
+      const next=[video,...current.filter((item)=>item.id!==video.id)].slice(0,8);
+      localStorage.setItem("visioncraft-video-history",JSON.stringify(next));
+      return next;
+    });
+  }
+
+  function removeVideo(id) {
+    setVideos((current)=>{
+      const next=current.filter((item)=>item.id!==id);
+      localStorage.setItem("visioncraft-video-history",JSON.stringify(next));
+      return next;
+    });
+  }
+
+  const notify=(message)=>{setToast(message);setTimeout(()=>setToast(""),4200)};
+  return <div className="app">
+    <Sidebar {...{page,setPage,open,setOpen,profileImage}}/>
+    <div className="shell">
+      <Header {...{setOpen,profileImage,setProfileImage,notify}}/>
+      {page==="studio"?<ImageStudio {...{creations,setCreations,notify}}/>:page==="shorts"?<ShortsStudio {...{notify,onVideoCreated}}/>:<LibraryPage {...{creations,videos,removeVideo}}/>}
+    </div>
+    {toast&&<div className="toast"><Sparkles size={17}/>{toast}</div>}
+    {open&&<div className="backdrop" onClick={()=>setOpen(false)}/>}
+  </div>
+}
